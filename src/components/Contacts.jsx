@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Contacts({ contacts, onClick }) {
-  // console.log(this.props);
    return (
      <>
        <ul>

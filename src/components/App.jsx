@@ -26,9 +26,8 @@ class App extends Component {
     }
   }
 
-  formSubmitHandler = data => {
+  formSubmitHandler = ({ name, number }) => {
     const { contacts } = this.state;
-    const { name, number } = data;
 
     const isDuplicate = contacts.some(contact => {
       if (contact.name === name && contact.number === number) {
@@ -56,11 +55,10 @@ class App extends Component {
   };
 
   makeFilteredContacts = () => {
-    return this.state.contacts.filter(contact => {
-      return contact.name
-        .toLowerCase()
-        .includes(this.state.filter.toLowerCase());
-    });
+     const { filter, contacts } = this.state;
+     return contacts.filter(contact =>
+       contact.name.toLowerCase().includes(filter.toLowerCase())
+     );
   };
 
   render() {
