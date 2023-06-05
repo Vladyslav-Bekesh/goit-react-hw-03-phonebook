@@ -10,10 +10,21 @@ class App extends Component {
     contacts: [],
     filter: '',
   };
+  CONTACT_KEY = 'contacts'
 
   onInputChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
   };
+
+  componentDidMount() {
+    this.setState({contacts: JSON.parse(localStorage.getItem(this.CONTACT_KEY))});
+  }
+
+  componentDidUpdate(prevProps, PrevState) {
+    if (PrevState.contacts !== this.state.contacts) {
+      localStorage.setItem(this.CONTACT_KEY, JSON.stringify(this.state.contacts));
+    }
+  }
 
   formSubmitHandler = data => {
     const { contacts } = this.state;
