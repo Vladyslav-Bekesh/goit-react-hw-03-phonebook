@@ -2,24 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Contacts({ contacts, onClick }) {
-   return (
-     <>
-       <ul>
-         {contacts.map(({ name, id, number }) => {
-           return (
-             <li key={id}>
-               <span>
-                 {name}: {number}
-               </span>
-               <button type="button" onClick={(e)=>{onClick(e,id)}}>
-                 delete
-               </button>
-             </li>
-           );
-         })}
-       </ul>
-     </>
-   );
+  return (
+    <>
+      <ul>
+        {contacts.map(({ name, id, number }) => {
+          return (
+            <li key={id}>
+              <span>
+                {name}: {number}
+              </span>
+              <button
+                type="button"
+                onClick={e => {
+                  onClick(e, id);
+                }}
+              >
+                delete
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </>
+  );
 }
 
 Contacts.propTypes = {

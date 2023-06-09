@@ -10,19 +10,24 @@ class App extends Component {
     contacts: [],
     filter: '',
   };
-  CONTACT_KEY = 'contacts'
+  CONTACT_KEY = 'contacts';
 
   onInputChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
   };
 
   componentDidMount() {
-    this.setState({contacts: JSON.parse(localStorage.getItem(this.CONTACT_KEY))});
+    this.setState({
+      contacts: JSON.parse(localStorage.getItem(this.CONTACT_KEY)) ?? [],
+    });
   }
 
   componentDidUpdate(prevProps, PrevState) {
     if (PrevState.contacts !== this.state.contacts) {
-      localStorage.setItem(this.CONTACT_KEY, JSON.stringify(this.state.contacts));
+      localStorage.setItem(
+        this.CONTACT_KEY,
+        JSON.stringify(this.state.contacts)
+      );
     }
   }
 
@@ -55,32 +60,28 @@ class App extends Component {
   };
 
   makeFilteredContacts = () => {
-     const { filter, contacts } = this.state;
-     return contacts.filter(contact =>
-       contact.name.toLowerCase().includes(filter.toLowerCase())
-     );
+    const { filter, contacts } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
 
   render() {
+    const { contacts } = this.state;
     return (
       <>
         <h1>Phonebook</h1>
-        {this.state.contacts !== 0 && (
-          <ContactForm onSubmit={this.formSubmitHandler} />
-        )}
-
+        {contacts !== 0 && <ContactForm onSubmit={this.formSubmitHandler} />}
         <h2>Contacts</h2>
+
         <Filter
           filter={this.state.filter}
-          contacts={this.state.contacts}
+          contacts={contacts}
           handleFilterChange={this.handleFilterChange}
         />
 
-        {this.state.contacts.length !== 0 && this.state.filter === '' ? (
-          <Contacts
-            contacts={this.state.contacts}
-            onClick={this.handleDelete}
-          />
+        {contacts.length !== 0 && this.state.filter === '' ? (
+          <Contacts contacts={contacts} onClick={this.handleDelete} />
         ) : (
           <Contacts contacts={this.makeFilteredContacts()} />
         )}
