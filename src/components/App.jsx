@@ -76,7 +76,6 @@ class App extends Component {
 
         <Filter
           filter={this.state.filter}
-          contacts={contacts}
           handleFilterChange={this.handleFilterChange}
         />
 
